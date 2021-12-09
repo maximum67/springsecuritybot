@@ -1,9 +1,6 @@
 package ru.madigital.springsecuritybot.rest;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.madigital.springsecuritybot.model.Developer;
 
 import java.util.List;
@@ -28,6 +25,15 @@ public class DeveloperRestControllerv1 {
         return DEVELOPERS.stream().filter(developer -> developer.getId().equals(id))
                 .findFirst()
                 .orElse(null);
+    }
+    @PostMapping
+    public Developer create(@RequestBody Developer developer){
+        this.DEVELOPERS.add(developer);
+        return developer;
+    }
+    @DeleteMapping
+    public void deleteById(@PathVariable Long id){
+        this.DEVELOPERS.removeIf(developer -> developer.getId().equals(id));
     }
 
 }
